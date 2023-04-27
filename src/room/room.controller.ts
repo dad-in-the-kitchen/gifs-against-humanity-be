@@ -1,20 +1,21 @@
 import express from "express";
 import { roomService } from "./room.service";
-import { CreatRoom, JoinRoom } from "./room.dto";
+import { BaseRoomParams, CreatRoomParams, JoinRoomParams } from "./room.dto";
 
 export const RoomController = express.Router();
 
+// create room
 RoomController.post("/rooms", async (req, res) => {
-  const params: CreatRoom = req.body;
-  console.log(params);
+  const params: CreatRoomParams = req.body;
   const code = await roomService.createRoom(params);
-  res.send(`create room ${code}`);
+  res.send(code);
 });
 
+// join room
 RoomController.put("/rooms/:code", async (req, res) => {
   const code = req.params.code;
-  console.log(code);
-  const params: JoinRoom = req.body;
-  console.log(params);
-  res.send("join room");
+  const params: BaseRoomParams = req.body;
+  await roomService.joinRoom({ ...params, code });
+
+  res.send(`${params.userName} join room ${code}`);
 });

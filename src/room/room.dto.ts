@@ -1,11 +1,15 @@
 import mongoose from "mongoose";
 
-export interface CreatRoom {
+export interface BaseRoomParams {
   userName: string;
   userId: string;
 }
 
-export interface JoinRoom extends CreatRoom {}
+export interface CreatRoomParams extends BaseRoomParams {}
+
+export interface JoinRoom extends BaseRoomParams {
+  code: string;
+}
 
 enum RoomStatus {
   prepering = "prepering",
