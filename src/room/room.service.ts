@@ -6,6 +6,7 @@ class RoomService {
     const { userId: id, userName: name } = createRoomParams;
     await roomModel.create({
       code,
+      currentUser: name,
       users: [{ id, name, admin: true, points: 0 }],
     });
     return code;
@@ -17,6 +18,12 @@ class RoomService {
       { code },
       { $push: { users: { id, name, admin: false, points: 0 } } }
     );
+  }
+
+  private getNextUser(users: [{ id: string }], currentUser: string) {
+    const currentIndex = users.findIndex((user) => user.id === currentUser);
+    const nextIndex = currentIndex + 1 >= users.length ? 0 : currentIndex + 1;
+    return users[nextIndex];
   }
 
   private generateRoomCode() {

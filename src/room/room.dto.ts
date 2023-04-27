@@ -17,7 +17,7 @@ enum RoomStatus {
   done = "done",
 }
 
-const UserSchema = new mongoose.Schema({
+export const UserSchema = new mongoose.Schema({
   id: String,
   name: String,
   admin: Boolean,
@@ -27,6 +27,7 @@ const UserSchema = new mongoose.Schema({
 const roomSchema = new mongoose.Schema({
   code: String,
   status: { type: String, default: RoomStatus.prepering },
+  currentUser: { type: String },
   users: [UserSchema],
 });
 
