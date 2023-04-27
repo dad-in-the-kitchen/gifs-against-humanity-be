@@ -16,5 +16,4 @@ RoomController.put("/rooms/:code", async (req, res) => {
   const params: JoinRoom = req.body;
   console.log(params);
   res.send("join room");
-  // res.send(await roomService.createScenario("test"));
 });
