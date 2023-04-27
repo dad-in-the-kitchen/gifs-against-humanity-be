@@ -7,7 +7,8 @@ export const RoomController = express.Router();
 RoomController.post("/rooms", async (req, res) => {
   const params: CreatRoom = req.body;
   console.log(params);
-  res.send("create room");
+  const code = await roomService.createRoom(params);
+  res.send(`create room ${code}`);
 });
 
 RoomController.put("/rooms/:code", async (req, res) => {

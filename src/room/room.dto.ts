@@ -7,8 +7,23 @@ export interface CreatRoom {
 
 export interface JoinRoom extends CreatRoom {}
 
+enum RoomStatus {
+  prepering = "prepering",
+  playing = "playing",
+  done = "done",
+}
+
+const UserSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  admin: Boolean,
+  points: Number,
+});
+
 const roomSchema = new mongoose.Schema({
-  text: String,
+  users: [UserSchema],
+  code: String,
+  status: { type: String, default: RoomStatus.prepering },
 });
 
 export const roomModel = mongoose.model("room", roomSchema);
