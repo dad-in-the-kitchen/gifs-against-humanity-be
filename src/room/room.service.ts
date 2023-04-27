@@ -13,15 +13,10 @@ class RoomService {
 
   async joinRoom(joinRoomParams: JoinRoomParams) {
     const { code, userId: id, userName: name } = joinRoomParams;
-    console.log({ code, id, name });
     await roomModel.updateOne(
       { code },
       { $push: { users: { id, name, admin: false, points: 0 } } }
     );
-  }
-
-  async getRooms() {
-    return roomModel.find();
   }
 
   private generateRoomCode() {

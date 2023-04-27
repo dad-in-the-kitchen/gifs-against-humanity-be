@@ -7,7 +7,7 @@ export interface BaseRoomParams {
 
 export interface CreatRoomParams extends BaseRoomParams {}
 
-export interface JoinRoom extends BaseRoomParams {
+export interface JoinRoomParams extends BaseRoomParams {
   code: string;
 }
 
@@ -25,9 +25,9 @@ const UserSchema = new mongoose.Schema({
 });
 
 const roomSchema = new mongoose.Schema({
-  users: [UserSchema],
   code: String,
   status: { type: String, default: RoomStatus.prepering },
+  users: [UserSchema],
 });
 
 export const roomModel = mongoose.model("room", roomSchema);
